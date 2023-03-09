@@ -21,6 +21,13 @@ PRICE4 = types.LabeledPrice(label="Мини курс RESTART", amount=2990 * 100
 PRICE5 = types.LabeledPrice(label="Мини курс быстрая сушка", amount=2990 * 100)  # в копейках (руб)
 PRICE6 = types.LabeledPrice(label="Марафон 21 день", amount=1000 * 100)  # в копейках (руб)
 
+# проверка на подписку на канал
+def check_sub_channel(chat_member):
+    print(chat_member['status'])
+    if chat_member['status'] != 'left':
+        return True
+    else:
+        return False
 
 # start
 @dp.message_handler(commands=['start'])
@@ -38,22 +45,74 @@ async def start(message: types.Message):
 
 
 # Чек-лист и гайды
-@dp.message_handler(text=['Чек лист и гайды'])
+@dp.message_handler(text=['Чек листы/гайды'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id,
                            text=messages.info_check_list,
                            reply_markup=keyboard.course1_kb2)
 
-# Получить бесплатный чек-лист
-@dp.message_handler(text=['Получить бесплатный чек-лист'])
+
+# гайд спортивыне добавки
+@dp.message_handler(text=['гайд спортивыне добавки'])
 async def start(message: types.Message):
-    with open('sports_supplements.pdf', 'rb') as file_pdf:
-        await bot.send_document(message.chat.id, file_pdf,
-                                caption='Ваш первый гайд!',
-                               reply_markup=keyboard.course1_kb2)
+    await bot.send_message(message.chat.id, text=messages.info_sports_supplement_guide, reply_markup=keyboard.course8_kb_guid)
+
+# Получить гайд спортивыне добавки
+@dp.message_handler(text=['Получить гайд спортивыне добавки'])
+async def start(message: types.Message):
+    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
+        with open('sports_supplements.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
+    else:
+        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
 
 
 
+# гайд как тренироваться для набора мышц
+@dp.message_handler(text=['гайд как тренироваться для набора мышц'])
+async def start(message: types.Message):
+    await bot.send_message(message.chat.id, text=messages.info_guide_on_how_to_train_to_gain_muscle, reply_markup=keyboard.course9_kb_guid)
+
+# Получить гайд как тренироваться для набора мышц
+@dp.message_handler(text=['Получить гайд как тренироваться для набора мышц'])
+async def start(message: types.Message):
+    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
+        with open('sports_supplements.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
+    else:
+        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
+
+
+
+# как тренироваться на рельеф
+@dp.message_handler(text=['как тренироваться на рельеф'])
+async def start(message: types.Message):
+    await bot.send_message(message.chat.id, text=messages.info_how_to_train_for_relief, reply_markup=keyboard.course10_kb_guid)
+
+# Получить гайд как тренироваться на рельеф
+@dp.message_handler(text=['Получить гайд как тренироваться на рельеф'])
+async def start(message: types.Message):
+    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
+        with open('sports_supplements.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
+    else:
+        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
+
+
+
+# чек-лист "что мешает похудению"
+@dp.message_handler(text=['чек-лист "что мешает похудению"'])
+async def start(message: types.Message):
+    await bot.send_message(message.chat.id, text=messages.info_checklist_what_prevents_weight_loss, reply_markup=keyboard.course11_kb_guid)
+
+# Получить чек-лист "что мешает похудению"
+@dp.message_handler(text=['Получить чек-лист "что мешает похудению"'])
+async def start(message: types.Message):
+    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
+        with open('sports_supplements.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
+    else:
+        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
 
 
 # Комплексы тренировок
@@ -103,7 +162,12 @@ async def buy(message: types.Message):
 @dp.message_handler(text=['Для начинающих дома / restart'])
 async def start(message: types.Message):
     with open('video.mp4', 'rb') as video:
-        await bot.send_video(message.chat.id, video=video, caption="Выберите, что вас интересует", reply_markup=keyboard.course5_kb2)
+        await bot.send_video(message.chat.id,
+                             video=video,
+                             caption="Выберите, что вас интересует",
+                             reply_markup=keyboard.course5_kb2,
+                             width=720,
+                             height=1280)
     # await bot.send_message(message.chat.id,
     #                        text="Выберите, что вас интересует",
     #                        reply_markup=keyboard.course5_kb2)
@@ -145,7 +209,7 @@ async def start(message: types.Message):
                            reply_markup=keyboard.course6_kb2)
 
 # о курсе быстрая сушка
-@dp.message_handler(text=['о курсе "быстрая сушка"'])
+@dp.message_handler(text=['Быстрая сушка - для кого?'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id,
                            text=messages.info_quick_drying,
@@ -183,9 +247,15 @@ async def start(message: types.Message):
 # О марафоне
 @dp.message_handler(text=['О марафоне'])
 async def buy(message: types.Message):
-    await bot.send_message(message.chat.id,
-                           text=messages.info_marathon,
-                           reply_markup=keyboard.course7_kb2)
+    with open('video2.MOV', 'rb') as video2:
+        await bot.send_video(message.chat.id,
+                             video=video2,
+                             parse_mode='MarkdownV2',
+                             caption=messages.info_marathon,
+                             reply_markup=keyboard.course7_kb2,
+                             width=720,
+                             height=1280)
+
 
 # Марафон хочу участвовать
 @dp.message_handler(text=['Хочу участвовать!'])

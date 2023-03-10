@@ -37,7 +37,7 @@ async def start(message: types.Message):
 
 
 # menu
-@dp.message_handler(text=['menu'])
+@dp.message_handler(text=['Меню'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id,
                            text="Привет!\n" + "Выбери курс, который тебе интересен",
@@ -53,7 +53,7 @@ async def start(message: types.Message):
 
 
 # гайд спортивыне добавки
-@dp.message_handler(text=['гайд спортивыне добавки'])
+@dp.message_handler(text=['Гайд спортивыне добавки'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_sports_supplement_guide, reply_markup=keyboard.course8_kb_guid)
 
@@ -69,7 +69,7 @@ async def start(message: types.Message):
 
 
 # гайд как тренироваться для набора мышц
-@dp.message_handler(text=['гайд как тренироваться для набора мышц'])
+@dp.message_handler(text=['Гайд как тренироваться для набора мышц'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_guide_on_how_to_train_to_gain_muscle, reply_markup=keyboard.course9_kb_guid)
 
@@ -85,7 +85,7 @@ async def start(message: types.Message):
 
 
 # как тренироваться на рельеф
-@dp.message_handler(text=['как тренироваться на рельеф'])
+@dp.message_handler(text=['Как тренироваться на рельеф'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_how_to_train_for_relief, reply_markup=keyboard.course10_kb_guid)
 
@@ -101,7 +101,7 @@ async def start(message: types.Message):
 
 
 # чек-лист "что мешает похудению"
-@dp.message_handler(text=['чек-лист "что мешает похудению"'])
+@dp.message_handler(text=['Чек-лист "что мешает похудению"'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_checklist_what_prevents_weight_loss, reply_markup=keyboard.course11_kb_guid)
 
@@ -131,14 +131,14 @@ async def start(message: types.Message):
                            reply_markup=keyboard.course3_kb2)
 
 # о курсе 6 кубиков
-@dp.message_handler(text=['о курсе 6 кубиков'])
+@dp.message_handler(text=['О курсе 6 кубиков'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id,
                            text=messages.info_6_dice,
                            reply_markup=keyboard.course3_kb2)
 
 # Оплатить 6 кубиков
-@dp.message_handler(text=['купить 6 кубиков'])
+@dp.message_handler(text=['Купить 6 кубиков'])
 async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
@@ -155,7 +155,8 @@ async def buy(message: types.Message):
                            is_flexible=False,
                            prices=[PRICE3],
                            start_parameter="one-month-subscription",
-                           payload="invoice-payload-6-dice")
+                           payload="invoice-payload-6-dice",
+                           reply_markup=keyboard.courses_kb1)
 
 
 # Для начинающих дома / restart
@@ -198,7 +199,8 @@ async def buy(message: types.Message):
                            is_flexible=False,
                            prices=[PRICE4],
                            start_parameter="one-month-subscription",
-                           payload="invoice-payload-restart")
+                           payload="invoice-payload-restart",
+                           reply_markup=keyboard.courses_kb1)
 
 
 # быстрая сушка
@@ -233,7 +235,8 @@ async def buy(message: types.Message):
                            is_flexible=False,
                            prices=[PRICE5],
                            start_parameter="one-month-subscription",
-                           payload="invoice-payload-quick-drying")
+                           payload="invoice-payload-quick-drying",
+                           reply_markup=keyboard.courses_kb1)
 
 
 # Марафон 21 день

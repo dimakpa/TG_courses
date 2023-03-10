@@ -114,4 +114,4 @@ IG - instagram.com/theolefirenko\n
 Telegram - https://t.me/+pzxumiNKkSsxOTg6\n
 YouTube - https://www.youtube.com/@Theolefirenko\n'''
 
-NOT_SUB_MESSAGE = '''Чтобы получить гайд, подпишитесь на канал @debocherry'''
+NOT_SUB_MESSAGE = '''Чтобы получить гайд, подпишитесь на канал t.me/+pzxumiNKkSsxOTg6'''

@@ -55,7 +55,8 @@ course10_kb_guid = ReplyKeyboardMarkup(
 
 
 # 6 кубиков
-button_13 = KeyboardButton('Купить 6 кубиков')
+# button_13 = KeyboardButton('Купить 6 кубиков')
+button_13 = KeyboardButton('Скоро в продаже')
 button_23 = KeyboardButton('О курсе 6 кубиков')
 button_33 = KeyboardButton('Меню')
 
@@ -64,7 +65,8 @@ course3_kb2 = ReplyKeyboardMarkup(
 
 # дома для начинающих / RESTART
 button_15 = KeyboardButton('Для кого?')
-button_25 = KeyboardButton('Купить RESTART')
+# button_25 = KeyboardButton('Купить RESTART')
+button_25 = KeyboardButton('Скоро в продаже')
 button_35 = KeyboardButton('Меню')
 
 course5_kb2 = ReplyKeyboardMarkup(
@@ -72,7 +74,8 @@ course5_kb2 = ReplyKeyboardMarkup(
 
 # быстрая сушка
 button_16 = KeyboardButton('Быстрая сушка - для кого?')
-button_26 = KeyboardButton('Купить быструю сушку')
+# button_26 = KeyboardButton('Купить быструю сушку')
+button_26 = KeyboardButton('Скоро в продаже')
 button_36 = KeyboardButton('Меню')
 
 course6_kb2 = ReplyKeyboardMarkup(

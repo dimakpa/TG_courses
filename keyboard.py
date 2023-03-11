@@ -12,6 +12,11 @@ button_5 = KeyboardButton('Обо мне')
 courses_kb1 = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add(button_1).add(button_2).add(button_3).add(button_4).add(button_5)
 
+keyboard_buy_1 = InlineKeyboardMarkup()
+keyboard_buy_1.add(InlineKeyboardButton("Pay", pay=True))
+
+
+
 button_14 = KeyboardButton('6 кубиков')
 button_24 = KeyboardButton('Для начинающих дома / restart')
 button_34 = KeyboardButton('Быстрая сушка')
@@ -22,14 +27,13 @@ courses4_kb4 = ReplyKeyboardMarkup(
 
 
 # Чек листы/гайды
-button_11 = KeyboardButton('Гайд спортивыне добавки')
-button_21 = KeyboardButton('Гайд как тренироваться для набора мышц')
+button_11 = KeyboardButton('Спортивыне добавки')
+button_21 = KeyboardButton('Как тренироваться для набора мышц')
 button_31 = KeyboardButton('Как тренироваться на рельеф')
-button_41 = KeyboardButton('Чек-лист "что мешает похудению"')
-button_51 = KeyboardButton('Меню')
+button_41 = KeyboardButton('Меню')
 
 course1_kb2 = ReplyKeyboardMarkup(
-    resize_keyboard=True, one_time_keyboard=True).add(button_11).add(button_21).add(button_31).add(button_41).add(button_51)
+    resize_keyboard=True, one_time_keyboard=True).add(button_11).add(button_21).add(button_31).add(button_41)
 
 # гайд спортивыне добавки
 button_18 = KeyboardButton('Получить гайд спортивыне добавки')
@@ -38,22 +42,17 @@ course8_kb_guid = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add(button_18).add(button_28)
 
 # гайд как тренироваться для набора мышц
-button_19 = KeyboardButton('Получить гайд как тренироваться для набора мышц')
+button_19 = KeyboardButton('Купить гайд как тренироваться для набора мышц')
 button_29 = KeyboardButton('Меню')
 course9_kb_guid = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add(button_19).add(button_29)
 
 # гайд как тренироваться на рельеф
-button_110 = KeyboardButton('Получить гайд как тренироваться на рельеф')
+button_110 = KeyboardButton('Купить гайд как тренироваться на рельеф')
 button_210 = KeyboardButton('Меню')
 course10_kb_guid = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add(button_110).add(button_210)
 
-# чек-лист "что мешает похудению"
-button_111 = KeyboardButton('Получить чек-лист "что мешает похудению"')
-button_211 = KeyboardButton('Меню')
-course11_kb_guid = ReplyKeyboardMarkup(
-    resize_keyboard=True, one_time_keyboard=True).add(button_111).add(button_211)
 
 # 6 кубиков
 button_13 = KeyboardButton('Купить 6 кубиков')

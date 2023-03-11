@@ -13,7 +13,7 @@ courses_kb1 = ReplyKeyboardMarkup(
     resize_keyboard=True, one_time_keyboard=True).add(button_1).add(button_2).add(button_3).add(button_4).add(button_5)
 
 keyboard_buy_1 = InlineKeyboardMarkup()
-keyboard_buy_1.add(InlineKeyboardButton("Pay", pay=True))
+keyboard_buy_1.add(InlineKeyboardButton("Оплатить", pay=True))
 
 
 

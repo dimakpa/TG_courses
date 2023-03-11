@@ -20,6 +20,8 @@ PRICE3 = types.LabeledPrice(label="Мини курс 6 кубиков", amount=2
 PRICE4 = types.LabeledPrice(label="Мини курс RESTART", amount=2990 * 100)  # в копейках (руб)
 PRICE5 = types.LabeledPrice(label="Мини курс быстрая сушка", amount=2990 * 100)  # в копейках (руб)
 PRICE6 = types.LabeledPrice(label="Марафон 21 день", amount=1000 * 100)  # в копейках (руб)
+PRICE7 = types.LabeledPrice(label="Как тренироваться для набора мышц", amount=1111 * 100)  # в копейках (руб)
+PRICE8 = types.LabeledPrice(label="Как тренироваться на рельеф", amount=2222 * 100)  # в копейках (руб)
 
 # проверка на подписку на канал
 def check_sub_channel(chat_member):
@@ -40,7 +42,7 @@ async def start(message: types.Message):
 @dp.message_handler(text=['Меню'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id,
-                           text="Привет!\n" + "Выбери курс, который тебе интересен",
+                           text="Привет!\n" + "Выбирай, что тебе интересно 🙏🏻",
                            reply_markup=keyboard.courses_kb1)
 
 
@@ -50,15 +52,13 @@ async def start(message: types.Message):
     await bot.send_message(message.chat.id,
                            text=messages.info_check_list,
                            reply_markup=keyboard.course1_kb2)
+    # if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)) == False:
+    #     await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
 
 
-# гайд спортивыне добавки
-@dp.message_handler(text=['Гайд спортивыне добавки'])
-async def start(message: types.Message):
-    await bot.send_message(message.chat.id, text=messages.info_sports_supplement_guide, reply_markup=keyboard.course8_kb_guid)
 
 # Получить гайд спортивыне добавки
-@dp.message_handler(text=['Получить гайд спортивыне добавки'])
+@dp.message_handler(text=['Спортивыне добавки'])
 async def start(message: types.Message):
     if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
         with open('sports_supplements.pdf', 'rb') as file:
@@ -69,18 +69,31 @@ async def start(message: types.Message):
 
 
 # гайд как тренироваться для набора мышц
-@dp.message_handler(text=['Гайд как тренироваться для набора мышц'])
+@dp.message_handler(text=['Как тренироваться для набора мышц'])
 async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_guide_on_how_to_train_to_gain_muscle, reply_markup=keyboard.course9_kb_guid)
 
 # Получить гайд как тренироваться для набора мышц
-@dp.message_handler(text=['Получить гайд как тренироваться для набора мышц'])
-async def start(message: types.Message):
-    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
-        with open('sports_supplements.pdf', 'rb') as file:
-            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
-    else:
-        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
+@dp.message_handler(text=['Купить гайд как тренироваться для набора мышц'])
+async def buy(message: types.Message):
+    if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
+        await bot.send_message(message.chat.id, "Тестовый платеж!!!")
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
+    await bot.send_invoice(message.chat.id,
+                           title="Покупка гайд как тренироваться для набора мышц",
+                           description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
+                           provider_token=config.PAYMENTS_TOKEN,
+                           currency="rub",
+                           photo_url="https://gbuenergiya.ru/wp-content/uploads/b/9/3/b93664f1a38a911f17c937d6ceee68c3.jpeg",
+                           photo_width=416,
+                           photo_height=234,
+                           photo_size=416,
+                           is_flexible=False,
+                           prices=[PRICE7],
+                           start_parameter="one-month-subscription",
+                           payload="invoice-payload-set-of-muscles",
+                           reply_markup=keyboard.keyboard_buy_1,
+                           )
 
 
 
@@ -90,29 +103,27 @@ async def start(message: types.Message):
     await bot.send_message(message.chat.id, text=messages.info_how_to_train_for_relief, reply_markup=keyboard.course10_kb_guid)
 
 # Получить гайд как тренироваться на рельеф
-@dp.message_handler(text=['Получить гайд как тренироваться на рельеф'])
-async def start(message: types.Message):
-    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
-        with open('sports_supplements.pdf', 'rb') as file:
-            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
-    else:
-        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
+@dp.message_handler(text=['Купить гайд как тренироваться на рельеф'])
+async def buy(message: types.Message):
+    if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
+        await bot.send_message(message.chat.id, "Тестовый платеж!!!")
 
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
+    await bot.send_invoice(message.chat.id,
+                           title="Покупка гайда как тренироваться на рельеф",
+                           description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
+                           provider_token=config.PAYMENTS_TOKEN,
+                           currency="rub",
+                           photo_url="https://gbuenergiya.ru/wp-content/uploads/b/9/3/b93664f1a38a911f17c937d6ceee68c3.jpeg",
+                           photo_width=416,
+                           photo_height=234,
+                           photo_size=416,
+                           is_flexible=False,
+                           prices=[PRICE8],
+                           start_parameter="one-month-subscription",
+                           payload="invoice-payload-train-for-relief",
+                           reply_markup=keyboard.keyboard_buy_1)
 
-
-# чек-лист "что мешает похудению"
-@dp.message_handler(text=['Чек-лист "что мешает похудению"'])
-async def start(message: types.Message):
-    await bot.send_message(message.chat.id, text=messages.info_checklist_what_prevents_weight_loss, reply_markup=keyboard.course11_kb_guid)
-
-# Получить чек-лист "что мешает похудению"
-@dp.message_handler(text=['Получить чек-лист "что мешает похудению"'])
-async def start(message: types.Message):
-    if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=message.from_user.id)):
-        with open('sports_supplements.pdf', 'rb') as file:
-            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд', reply_markup=keyboard.course1_kb2)
-    else:
-        await bot.send_message(message.chat.id, text=messages.NOT_SUB_MESSAGE, reply_markup=keyboard.course1_kb2)
 
 
 # Комплексы тренировок
@@ -143,6 +154,7 @@ async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
 
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
     await bot.send_invoice(message.chat.id,
                            title="Покупка мини курса 6 кубиков",
                            description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
@@ -156,7 +168,7 @@ async def buy(message: types.Message):
                            prices=[PRICE3],
                            start_parameter="one-month-subscription",
                            payload="invoice-payload-6-dice",
-                           reply_markup=keyboard.courses_kb1)
+                           reply_markup=keyboard.keyboard_buy_1)
 
 
 # Для начинающих дома / restart
@@ -187,6 +199,7 @@ async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
 
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
     await bot.send_invoice(message.chat.id,
                            title="Покупка мини курса дома для начинающих / RESTART",
                            description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
@@ -200,7 +213,7 @@ async def buy(message: types.Message):
                            prices=[PRICE4],
                            start_parameter="one-month-subscription",
                            payload="invoice-payload-restart",
-                           reply_markup=keyboard.courses_kb1)
+                           reply_markup=keyboard.keyboard_buy_1)
 
 
 # быстрая сушка
@@ -223,6 +236,7 @@ async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
 
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
     await bot.send_invoice(message.chat.id,
                            title="Покупка мини курса быстрая сушка",
                            description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
@@ -236,7 +250,7 @@ async def buy(message: types.Message):
                            prices=[PRICE5],
                            start_parameter="one-month-subscription",
                            payload="invoice-payload-quick-drying",
-                           reply_markup=keyboard.courses_kb1)
+                           reply_markup=keyboard.keyboard_buy_1)
 
 
 # Марафон 21 день
@@ -309,10 +323,14 @@ async def successful_payment(message: types.Message):
         print(f"{k} = {v}")
     await bot.send_message(message.chat.id,
                            f"Платеж на сумму {message.successful_payment.total_amount // 100} {message.successful_payment.currency} прошел успешно!!!")
-    if payment_info['invoice_payload'] == "invoice-payload-check-list":
-        await bot.send_message(message.chat.id, messages.link_check_list)
-    if payment_info['invoice_payload'] == "invoice-payload-gaid":
-        await bot.send_message(message.chat.id, messages.link_gaid)
+    if payment_info['invoice_payload'] == "invoice-payload-train-for-relief":
+        with open('train_for_relief.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд "Как тренироваться на рельеф?"\n ',
+                                    reply_markup=keyboard.courses_kb1)
+    if payment_info['invoice_payload'] == "invoice-payload-set-of-muscles":
+        with open('gaid_set_of_muscles.pdf', 'rb') as file:
+            await bot.send_document(message.chat.id, document=file, caption='Ваш гайд "Как тренироваться на рост мышц?"',
+                                    reply_markup=keyboard.courses_kb1)
     if payment_info['invoice_payload'] == "invoice-payload-6-dice":
         await bot.send_message(message.chat.id, messages.link_6_dice)
     if payment_info['invoice_payload'] == "invoice-payload-restart":

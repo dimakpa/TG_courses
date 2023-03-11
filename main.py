@@ -20,8 +20,8 @@ PRICE3 = types.LabeledPrice(label="Мини курс 6 кубиков", amount=2
 PRICE4 = types.LabeledPrice(label="Мини курс RESTART", amount=2990 * 100)  # в копейках (руб)
 PRICE5 = types.LabeledPrice(label="Мини курс быстрая сушка", amount=2990 * 100)  # в копейках (руб)
 PRICE6 = types.LabeledPrice(label="Марафон 21 день", amount=1000 * 100)  # в копейках (руб)
-PRICE7 = types.LabeledPrice(label="Как тренироваться для набора мышц", amount=1111 * 100)  # в копейках (руб)
-PRICE8 = types.LabeledPrice(label="Как тренироваться на рельеф", amount=2222 * 100)  # в копейках (руб)
+PRICE7 = types.LabeledPrice(label="Как тренироваться для набора мышц", amount=299 * 100)  # в копейках (руб)
+PRICE8 = types.LabeledPrice(label="Как тренироваться на рельеф", amount=299 * 100)  # в копейках (руб)
 
 # проверка на подписку на канал
 def check_sub_channel(chat_member):
@@ -78,15 +78,15 @@ async def start(message: types.Message):
 async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
-    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text=messages.text_for_gaids, parse_mode='MarkdownV2')
     await bot.send_invoice(message.chat.id,
-                           title="Покупка гайд как тренироваться для набора мышц",
-                           description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
+                           title="Покупка гайда для набора мышц",
+                           description="Гайд отправится вам автоматически",
                            provider_token=config.PAYMENTS_TOKEN,
                            currency="rub",
-                           photo_url="https://gbuenergiya.ru/wp-content/uploads/b/9/3/b93664f1a38a911f17c937d6ceee68c3.jpeg",
-                           photo_width=416,
-                           photo_height=234,
+                           photo_url="https://github.com/dimakpa/TG_courses/blob/main/invoice_train_to_gain_muscle.PNG?raw=true",
+                           photo_width=512,
+                           photo_height=512,
                            photo_size=416,
                            is_flexible=False,
                            prices=[PRICE7],
@@ -108,16 +108,16 @@ async def buy(message: types.Message):
     if config.PAYMENTS_TOKEN.split(':')[1] == 'TEST':
         await bot.send_message(message.chat.id, "Тестовый платеж!!!")
 
-    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text='Чек')
+    await bot.send_message(message.chat.id, reply_markup=keyboard.courses_kb1, text=messages.text_for_gaids, parse_mode='MarkdownV2')
     await bot.send_invoice(message.chat.id,
-                           title="Покупка гайда как тренироваться на рельеф",
-                           description="Ссылка на миникурс отправится вам сразу после успешной оплаты",
+                           title="Покупка гайда",
+                           description="Гайд отправится вам автоматически",
                            provider_token=config.PAYMENTS_TOKEN,
                            currency="rub",
-                           photo_url="https://gbuenergiya.ru/wp-content/uploads/b/9/3/b93664f1a38a911f17c937d6ceee68c3.jpeg",
-                           photo_width=416,
-                           photo_height=234,
-                           photo_size=416,
+                           photo_url="https://github.com/dimakpa/TG_courses/blob/main/invoice_train_for_relief.PNG?raw=true",
+                           photo_width=512,
+                           photo_height=512,
+                           photo_size=512,
                            is_flexible=False,
                            prices=[PRICE8],
                            start_parameter="one-month-subscription",
